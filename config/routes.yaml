@@ -1,0 +1,16 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+activity:
+    path: /api/activity/{id}
+    controller: App\Controller\ActivityController::showActivity
+    methods: GET
+api_login_check:
+    path: /api/login_check
+api_logout:
+    path: /api/logout
+app_home:
+    path: /api/
