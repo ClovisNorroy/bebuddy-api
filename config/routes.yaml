@@ -8,9 +8,14 @@ activity:
     path: /api/activity/{id}
     controller: App\Controller\ActivityController::showActivity
     methods: GET
+new_activity:
+    path: /api/activity/new
+    controller: App\Controller\ActivityController::newActivity
+    methods: POST
 api_login_check:
     path: /api/login_check
 api_logout:
     path: /api/logout
 app_home:
     path: /api/
+
