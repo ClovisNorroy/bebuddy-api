@@ -8,7 +8,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,7 +23,9 @@ security:
         api:
             pattern: ^/api
             stateless: true
-            jwt: ~
+            jwt:
+                provider: null
+                authenticator: lexik_jwt_authentication.security.jwt_authenticator
             logout:
                 path: /api/logout
                 delete_cookies: ['BEARER']
@@ -40,7 +42,7 @@ security:
         - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/, roles: PUBLIC_ACCESS }
+        - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:
