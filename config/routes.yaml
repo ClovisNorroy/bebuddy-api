@@ -4,10 +4,6 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-test:
-    path: /test
-    controller: App/Controller/TestController::test
-    methods: GET
 activity:
     path: /api/activity/{id}
     controller: App\Controller\ActivityController::showActivity
