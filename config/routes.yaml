@@ -11,7 +11,7 @@ activity:
 activities:
     path: /api/activities
     controller: App\Controller\ActivityController::getActivities
-    methods: POST
+    methods: GET
 new_activity:
     path: /api/activity/new
     controller: App\Controller\ActivityController::newActivity
