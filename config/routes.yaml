@@ -16,6 +16,14 @@ new_activity:
     path: /api/activity/new
     controller: App\Controller\ActivityController::newActivity
     methods: POST
+user_profile:
+    path: /api/userprofile
+    controller: App\Controller\UserProfileController::getUserProfile
+    methods: GET
+profile_picture:
+    path: /api/profilepicture
+    controller: App\Controller\UserProfileController::setProfilePicture
+    methods: POST
 api_login_check:
     path: /api/login_check
 api_logout:

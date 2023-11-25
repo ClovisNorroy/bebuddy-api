@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Serializer;
 class ActivityController extends AbstractController
 {
 
-  public function getActivities(Request $request, ActivityRepository $activityRepository): Response
+  public function getActivities(ActivityRepository $activityRepository): Response
   {
     $encoders = [new XmlEncoder(), new JsonEncoder()];
     $normalizers = [new ObjectNormalizer()];
