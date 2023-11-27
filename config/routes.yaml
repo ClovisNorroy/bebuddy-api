@@ -30,3 +30,7 @@ api_logout:
     path: /api/logout
 app_home:
     path: /api/
+test_app:
+    path: /test
+    controller: App\Controller\TestController::printTest
+    methods: GET
