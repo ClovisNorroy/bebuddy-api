@@ -1,0 +1,7 @@
+{
+  "files.exclude": {
+    "var": true,
+    "php": true,
+    "bin": true
+  }
+}

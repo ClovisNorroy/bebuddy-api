@@ -42,6 +42,9 @@ class UserProfile
     #[ORM\Column(length: 128, nullable: true)]
     private ?string $place = null;
 
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $birtdate = null;
+
     public function getProfilePicture(): ?File
     {
         return $this->profilePicture;
@@ -60,11 +63,6 @@ class UserProfile
             $this->updatedAt = new \DateTimeImmutable();
         }
         return $this;
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->profilePicture;
     }
 
     public function getId(): ?int
@@ -140,6 +138,18 @@ class UserProfile
     public function setPlace(?string $place): static
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getBirtdate(): ?\DateTimeImmutable
+    {
+        return $this->birtdate;
+    }
+
+    public function setBirtdate(?\DateTimeImmutable $birtdate): static
+    {
+        $this->birtdate = $birtdate;
 
         return $this;
     }
