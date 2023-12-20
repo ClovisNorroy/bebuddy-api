@@ -16,11 +16,15 @@ new_activity:
     path: /api/activity/new
     controller: App\Controller\ActivityController::newActivity
     methods: POST
-user_profile:
+get_user_profile:
     path: /api/userprofile
     controller: App\Controller\UserProfileController::getUserProfileInfos
     methods: GET
-get_profile_pîcture:
+set_user_profile:
+    path: /api/userprofile
+    controller: App\Controller\UserProfileController::setUserProfileInfos
+    methods: POST
+get_profile_picture:
     path: /api/profilepicture
     controller: App\Controller\UserProfileController::getUserProfilePicture
     methods: GET

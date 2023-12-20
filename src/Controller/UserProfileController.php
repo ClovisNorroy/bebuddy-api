@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -37,11 +38,26 @@ class UserProfileController extends AbstractController
         return new Response(json_encode(
             array(
                 'birthdate'=>$userProfile->getBirtdate(),
-                'description'=>$userProfile->getDescription(),
+                'about'=>$userProfile->getDescription(),
                 'gender'=>$userProfile->getGender(),
                 'place'=>$userProfile->getPlace()
             )
         ));
+    }
+
+    public function setUserProfileInfos(Request $request, EntityManagerInterface $entityManager): Response
+    {
+                /**@var User $user */
+                $user = $this->security->getUser();
+                $userProfile =  $user->getUserProfile();
+                $userProfileData = $request->toArray();
+                $temp =  DateTimeImmutable::createFromFormat("Y/m/d", $userProfileData["birthdate"]);
+                $userProfile->setDescription($userProfileData["about"]);
+                $userProfile->setBirtdate($temp);
+                $userProfile->setPlace($userProfileData["place"]);
+                $entityManager->persist($userProfile);
+                $entityManager->flush();
+                return new Response("User infos saved");
     }
 
     public function setUserProfilePicture(Request $request, EntityManagerInterface $entityManager): Response
