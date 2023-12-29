@@ -47,6 +47,7 @@ class ActivityController extends AbstractController
   public function newActivity(Request $request,EntityManagerInterface $entityManager): Response
   {
     $activityData = $request->toArray();
+    $currentuser = $this->security->getUser();
     $newActivity = new Activity();
     $newActivity->setTitle($activityData['title']);
     $newActivity->setDescription($activityData['description']);
@@ -55,6 +56,7 @@ class ActivityController extends AbstractController
     $newActivity->setDate($temp);
     $newActivity->setNbrParticipants($activityData['nbrparticipants']);
     $newActivity->setIsPublic($activityData['privacy']);
+    $newActivity->setCreatorUserId($currentuser);
 
     $entityManager->persist($newActivity);
     $entityManager->flush();
