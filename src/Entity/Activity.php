@@ -17,9 +17,6 @@ class Activity
     #[ORM\Column(length: 100)]
     private ?string $Title = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Description = null;
 
@@ -34,6 +31,10 @@ class Activity
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $nbr_participants = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $creator_user_id = null;
 
     public function getId(): ?int
     {
@@ -100,18 +101,6 @@ class Activity
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function getNbrParticipants(): ?int
     {
         return $this->nbr_participants;
@@ -120,6 +109,18 @@ class Activity
     public function setNbrParticipants(?int $nbr_participants): static
     {
         $this->nbr_participants = $nbr_participants;
+
+        return $this;
+    }
+
+    public function getCreatorUserId(): ?User
+    {
+        return $this->creator_user_id;
+    }
+
+    public function setCreatorUserId(?User $creator_user_id): static
+    {
+        $this->creator_user_id = $creator_user_id;
 
         return $this;
     }

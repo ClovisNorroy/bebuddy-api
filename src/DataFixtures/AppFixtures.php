@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Activity;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -12,9 +13,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     public function __construct(
-        private UserPasswordHasherInterface $userPasswordHasher
-    ) {
-    }
+        private UserPasswordHasherInterface $userPasswordHasher,
+        private EntityManagerInterface $entityManager
+    ) {}
 
     public function load(ObjectManager $manager): void
     {
@@ -37,14 +38,18 @@ class AppFixtures extends Fixture
         $user->setPasswordView($password);
         $user->setPassword($this->userPasswordHasher->hashPassword($user, $password));
         $manager->persist($user);
+        $manager->flush();
 
         for ($i = 0; $i < 10; $i++) {
+            /** @var User $engywook */
+            $engywook = $this->entityManager->getRepository(User::class)->findOneBy(["email" => "engywook@gmail.com"]);
             $activity = new Activity();
             $activity->setTitle($faker->words(4, true));
             $activity->setDescription($faker->paragraph(2));
             $activity->setPlace($faker->city());
             $activity->setDate($faker->dateTime());
             $activity->setIsPublic($faker->boolean());
+            $activity->setCreatorUserId($engywook);
             $manager->persist($activity);
         }
         $manager->flush();

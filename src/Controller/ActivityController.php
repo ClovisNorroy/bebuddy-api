@@ -7,6 +7,7 @@ use App\Repository\ActivityRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -16,7 +17,11 @@ use Symfony\Component\Serializer\Serializer;
 
 class ActivityController extends AbstractController
 {
-
+  private $security;
+  public function __construct(Security $security)
+  {
+      $this->security = $security;
+  }
   public function getActivities(ActivityRepository $activityRepository): Response
   {
     $encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -45,7 +50,6 @@ class ActivityController extends AbstractController
     $newActivity = new Activity();
     $newActivity->setTitle($activityData['title']);
     $newActivity->setDescription($activityData['description']);
-    $newActivity->setName($activityData['name']);
     $newActivity->setPlace($activityData['place']);
     $temp =  DateTime::createFromFormat("Y/m/d", $activityData['date']);
     $newActivity->setDate($temp);
